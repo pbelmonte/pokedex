@@ -1,0 +1,16 @@
+.card:hover {
+  animation: boop 0.1s linear;
+}
+
+@keyframes boop {
+  from {
+      transform: matrix(1, 0, 0, 1, 0, 0);
+  }
+  to {
+      transform: matrix(1, 0, 0, 1, 0, -5);
+  }
+}
+
+.card-background {
+  background-color: #F2F2F2;
+}

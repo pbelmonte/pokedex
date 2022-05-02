@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { getPokemonData } from '../context/pokemonContext/pokemonActions';
+import { getPokemonData } from '../context/pokemonContext/pokemonActions'
 import { usePokemon } from "../context/pokemonContext/pokemonContext"
-import Layout from "./Layout"
+import Card from './Card'
+import Layout from './Layout'
+import Loader from './Loader'
 
 export default function Index() {
   const { state, dispatch } = usePokemon()
@@ -11,8 +13,7 @@ export default function Index() {
 
   useEffect(() => {
     window.onscroll = () => {
-      const target = listRef.current ? listRef.current.clientHeight - 600 : 9999
-      console.log(window.pageYOffset, target)
+      const target = listRef.current ? listRef.current.clientHeight - listRef.current.clientWidth : 9999
       if (window.pageYOffset >= target && state.pokemonList.length > 12) {
         setShouldLoad(true)
       }
@@ -27,20 +28,15 @@ export default function Index() {
   }, [state.pokemonList, state.loadingData, shouldLoad])
 
   return (
-    <Layout pageTitle="Pokedex">
+    <Layout pageTitle="Pokédex">
       <div className="m-20 mb-40 flex flex-col">
         <div
           className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-20"
           ref={listRef}
         >
           {
-            state.pokemonList.map(({ id, name, imageUrl }) => (
-              <div className="m-auto w-52" key={id}>
-                <div className="card-background">
-                  <img src={imageUrl} width="200" />
-                </div>
-                <p>{name}</p>
-              </div>
+            state.pokemonList.map(({ id, name, imageUrl, types }) => (
+              <Card key={id} id={id} name={name} imageUrl={imageUrl} types={types} />
             ))
           }
         </div>
@@ -51,18 +47,12 @@ export default function Index() {
                 className="text-white p-2 px-6 rounded-md button-lightblue"
                 onClick={() => getPokemonData(state.pokemonList, dispatch)}
               >
-                Cargar más Pokémon
+                Load more Pokémon
               </button>
             </div>
           )
         }
-        {
-          state.loadingData && (
-            <div className="m-auto">
-              <img className="loader" src="https://assets.pokemon.com/static2/_ui/img/chrome/loaders/pokeball_gray.png" width="50" />
-            </div>
-          )
-        }
+        <Loader loading={state.loadingData} />
       </div>
     </Layout>
   )
