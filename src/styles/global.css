@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background: #424242 url('https://assets.pokemon.com/static2/_ui/img/chrome/body_bg.png');
+}
+
+.main-container {
+  background: #fff url('https://assets.pokemon.com/static2/_ui/img/chrome/container_bg.png');
+}
+
+.content-wrapper {
+  background: transparent url('https://assets.pokemon.com/static2/_ui/img/chrome/content_bg.png') left top;
+}
+
+.card-background {
+  background-color: #F2F2F2;
+}
+
+.button-lightblue {
+  background-color: #30a7d7;
+}
+
+.button-lightblue:hover {
+  background-color: #1b82b1;
+}
+
+.loader {
+  animation: spin 0.5s infinite linear;
+}
+
+@keyframes spin {
+  from {
+      transform: scale(1) rotate(0deg);
+  }
+  to {
+      transform: scale(1) rotate(360deg);
+  }
+}
