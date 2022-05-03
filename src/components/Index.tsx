@@ -13,8 +13,8 @@ export default function Index() {
 
   useEffect(() => {
     window.onscroll = () => {
-      const target = listRef.current ? listRef.current.clientHeight - listRef.current.clientWidth : 9999
-      if (window.pageYOffset >= target && state.pokemonList.length > 12) {
+      const target = listRef.current ? listRef.current.clientHeight : 9999
+      if (window.pageYOffset + window.innerHeight >= target && state.pokemonList.length > 12) {
         setShouldLoad(true)
       }
     };
