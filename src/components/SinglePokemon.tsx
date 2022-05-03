@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react'
 import { getSinglePokemonData } from '../context/pokemonContext/pokemonActions'
 import { usePokemon } from '../context/pokemonContext/pokemonContext'
-import { Stat } from '../context/pokemonContext/pokemonTypes'
 import Loader from './Loader'
-import '../styles/singlePokemon.css'
-import Gauge from './Gauge'
+import PokemonInfo from './PokemonInfo'
+import Tag from './Tag'
+import Pagination from './Pagination'
+import ReplaceGender from './ReplaceGender'
+import formatId from '../utils/formatId'
+import Stats from './Stats'
 
 
 interface Props {
@@ -12,48 +15,53 @@ interface Props {
 }
 
 const SinglePokemon = ({ pokemonId }: Props) => {
-  const { state, dispatch } = usePokemon()
+  const { state: { singlePokemonData, loadingData }, dispatch } = usePokemon()
 
   useEffect(() => {
     getSinglePokemonData(pokemonId, dispatch)
   }, [])
 
-  const translateStat = (name: string): string => {
-    const separated = name.split('-')
-    const capitalized = separated.map((item: string) => item.charAt(0).toUpperCase() + item.slice(1))
-    return capitalized.join(' ')
-  }
-
   return (
-    <div className="mx-auto max-w-7xl main-container">
-      <title>{state.singlePokemonData ? state.singlePokemonData.name : 'Pokémon'}</title>
-      <main className="mx-auto py-5 max-w-5xl flex flex-col content-wrapper">
-        <Loader loading={state.loadingData} />
+    <div className="mx-auto lg:max-w-7xl mt-10 bg-white bg-container-bg flex flex-col">
+      <title>{singlePokemonData ? singlePokemonData.name : 'Pokémon'}</title>
+      <main className="mx-auto max-w-5xl bg-white">
+        <Loader loading={loadingData} />
         {
-          state.singlePokemonData && (
+          singlePokemonData && (
             <>
-              <h1 className="text-3xl mx-auto mt-10">{state.singlePokemonData.name}</h1>
-              <div className="grid sm:grid-cols-1 md:grid-cols-2 mx-[60px]">
-                <div className="flex flex-col m-3">
-                  <div className="rounded-md card-background">
-                    <img src={state.singlePokemonData.imageUrl} width="500" />
+              <Pagination prevPokemon={singlePokemonData.prevPokemon} nextPokemon={singlePokemonData.nextPokemon} />
+              <div className="flex justify-center">
+                <h1 className="text-3xl text-center mt-5 mb-16">
+                  <span className="flex">
+                    <ReplaceGender name={singlePokemonData.name} />
+                    <span className="ml-4 text-gray-600">{formatId(singlePokemonData.id)}</span>
+                  </span>
+                </h1>
+              </div>
+              <div className="grid sm:grid-cols-1 lg:grid-cols-2 mb-20">
+                <div className="flex flex-col px-2">
+                  <div className="rounded-md bg-light-gray">
+                    <img src={singlePokemonData.imageUrl} className="mx-auto w-96 lg:w-[500px]" />
                   </div>
-                  <div className="p-6 mt-4 rounded-md stats">
-                    Stats
+                  <Stats stats={singlePokemonData.stats} />
+                </div>
+                <div className="flex flex-col m-2 p-2">
+                  <p className="text-lg mb-10">{singlePokemonData.flavorText}</p>
+                  <PokemonInfo
+                    height={singlePokemonData.height}
+                    weight={singlePokemonData.weight}
+                    gender={singlePokemonData.gender}
+                    category={singlePokemonData.category}
+                    abilities={singlePokemonData.abilities}
+                  />
+                  <div className="mt-10">
+                    <p>Type</p>
                     <div className="flex">
                       {
-                        state.singlePokemonData.stats.map((item: Stat) => (
-                          <div className="flex flex-col">
-                            <Gauge value={(item.value / 17) + 1} />
-                            <span className="text-xs text-center font-bold w-16">{translateStat(item.name)}</span>
-                          </div>
-                        ))
+                        singlePokemonData.types.map((item) => <Tag type={item} size="big" />)
                       }
                     </div>
                   </div>
-                </div>
-                <div className="flex flex-col m-3">
-                  <p>{state.singlePokemonData.flavorText}</p>
                 </div>
               </div>
             </>

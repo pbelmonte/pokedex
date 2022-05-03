@@ -1,6 +1,6 @@
-export const SET_LOADING_DATA = "SET_LOADING_DATA"
-export const SET_POKEMON_LIST = "SET_POKEMON_LIST"
-export const SET_SINGLE_POKERMON_DATA = "SET_SINGLE_POKEMON_DATA"
+export const SET_LOADING_DATA = 'SET_LOADING_DATA'
+export const SET_POKEMON_LIST = 'SET_POKEMON_LIST'
+export const SET_SINGLE_POKERMON_DATA = 'SET_SINGLE_POKEMON_DATA'
 
 export interface PokemonData {
   id: number
@@ -14,9 +14,18 @@ export interface Stat {
   value: number
 }
 
+export type Gender = 'male' | 'female' | 'both' | 'genderless'
+
 export interface SinglePokemonData extends PokemonData {
   stats: Stat[]
   flavorText: string
+  height: number
+  weight: number
+  gender: Gender
+  category: string
+  abilities: string[]
+  prevPokemon: PokemonData
+  nextPokemon: PokemonData
 }
 
 export interface State {

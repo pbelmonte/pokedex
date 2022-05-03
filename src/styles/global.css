@@ -5,19 +5,3 @@
 body {
   background: #424242 url('../images/body_bg.png');
 }
-
-.main-container {
-  background: #fff url('../images/container_bg.png');
-}
-
-.content-wrapper {
-  background: transparent url('../images/content_bg.png') left top;
-}
-
-.button-lightblue {
-  background-color: #30a7d7;
-}
-
-.button-lightblue:hover {
-  background-color: #1b82b1;
-}

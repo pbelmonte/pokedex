@@ -5,16 +5,14 @@ export const createPages = ({ actions }) => {
 
   const template = path.resolve('src/pages/pokemon.tsx')
 
-  const range = (start, stop) => Array.from({ length: (stop - start)}, (_, i) => start + i)
-
-  const pages = range(1, 899)
+  const pages = [...Array(898).keys()]
 
   pages.forEach(element => {
     createPage({
-      path: `/pokemon/${element}`,
+      path: `/pokemon/${element + 1}`,
       component: template,
       context: {
-        id: element,
+        id: element + 1,
       },
     })
   })
