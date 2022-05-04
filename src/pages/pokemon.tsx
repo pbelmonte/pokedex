@@ -74,7 +74,7 @@ function PokemonPage({ pageContext: { id } }: Props) {
                   <p>Type</p>
                   <div className="flex">
                     {singlePokemonData.types.map(item => (
-                      <Tag type={item} size="big" />
+                      <Tag key={item} type={item} size="big" />
                     ))}
                   </div>
                 </div>
