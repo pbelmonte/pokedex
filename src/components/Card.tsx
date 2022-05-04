@@ -19,7 +19,7 @@ function Card({ id, name, imageUrl, types }: Props) {
     <Link to={`/pokemon/${id}`}>
       <div className="m-auto mb-10 w-52 card">
         <div className="rounded-md bg-light-gray">
-          <img src={imageUrl} alt={`${name} sprite`} width={200} />
+          <img src={imageUrl} alt={`${name} sprite`} width="200" height="200" />
         </div>
         <div className="px-2">
           <span className="text-xs font-bold text-gray-500">
