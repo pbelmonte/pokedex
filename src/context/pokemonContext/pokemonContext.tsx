@@ -1,7 +1,13 @@
-import React, { ReactNode, createContext, useReducer, useContext } from "react";
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useMemo,
+  useReducer,
+} from "react";
 
 import apiReducer, { initialState } from "./pokemonReducer";
-import { State, Dispatch } from "./pokemonTypes";
+import { Dispatch, State } from "./pokemonTypes";
 
 interface ApiProviderProps {
   children: ReactNode;
@@ -11,12 +17,13 @@ const ApiContext = createContext<
   { state: State; dispatch: Dispatch } | undefined
 >(undefined);
 
-const ApiProvider = ({ children }: ApiProviderProps) => {
+function ApiProvider({ children }: ApiProviderProps) {
   const [state, dispatch] = useReducer(apiReducer, initialState);
 
-  const value = { state, dispatch };
+  const value = useMemo(() => ({ state, dispatch }), [state]);
+
   return <ApiContext.Provider value={value}>{children}</ApiContext.Provider>;
-};
+}
 
 const useApi = () => {
   const context = useContext(ApiContext);

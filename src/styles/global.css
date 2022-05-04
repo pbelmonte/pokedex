@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 body {
-  background: #424242 url('../images/body_bg.png');
+  background: #424242 url("../images/body_bg.png");
 }

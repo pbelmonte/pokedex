@@ -1,12 +1,11 @@
-import React from 'react'
-import { Link } from 'gatsby'
+import React from "react";
 
 interface Props {
-  pageTitle: string
-  children: React.ReactNode
+  pageTitle: string;
+  children: React.ReactNode;
 }
 
-const Layout = ({ pageTitle, children }: Props) => {
+function Layout({ pageTitle, children }: Props) {
   return (
     <div className="mx-auto lg:max-w-7xl mt-10 bg-white bg-container-bg">
       <title>{pageTitle}</title>
@@ -15,7 +14,7 @@ const Layout = ({ pageTitle, children }: Props) => {
         {children}
       </main>
     </div>
-  )
+  );
 }
 
-export default Layout
+export default Layout;

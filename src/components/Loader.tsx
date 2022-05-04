@@ -1,20 +1,21 @@
-import React from 'react'
-import '../styles/loader.css'
+import "../styles/loader.css";
 
-import pokeball from '../images/pokeball_gray.png'
+import React from "react";
 
+import pokeball from "../images/pokeball_gray.png";
 
 interface Props {
-  loading: boolean
+  loading: boolean;
 }
 
-const Loader = ({ loading }: Props) => (
-  loading
-    ? (
-      <div className="m-auto">
-        <img className="loader" src={pokeball} alt="loading" width="50" />
-      </div>
-    ) : <></>
-)
+function Loader({ loading }: Props) {
+  return loading ? (
+    <div className="m-auto">
+      <img className="loader" src={pokeball} alt="loading" width="50" />
+    </div>
+  ) : (
+    <div />
+  );
+}
 
-export default Loader
+export default Loader;

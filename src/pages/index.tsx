@@ -1,11 +1,14 @@
-import React from 'react'
-import Index from '../components/Index'
-import { PokemonProvider } from '../context/pokemonContext/pokemonContext'
+import React from "react";
 
-const IndexPage = () => (
-  <PokemonProvider>
-    <Index />
-  </PokemonProvider>
-)
+import Index from "../components/Index";
+import { PokemonProvider } from "../context/pokemonContext/pokemonContext";
 
-export default IndexPage
+function IndexPage() {
+  return (
+    <PokemonProvider>
+      <Index />
+    </PokemonProvider>
+  );
+}
+
+export default IndexPage;

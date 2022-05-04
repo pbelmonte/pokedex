@@ -1,75 +1,85 @@
-import React, { useEffect } from 'react'
-import { getSinglePokemonData } from '../context/pokemonContext/pokemonActions'
-import { usePokemon } from '../context/pokemonContext/pokemonContext'
-import Loader from './Loader'
-import PokemonInfo from './PokemonInfo'
-import Tag from './Tag'
-import Pagination from './Pagination'
-import ReplaceGender from './ReplaceGender'
-import formatId from '../utils/formatId'
-import Stats from './Stats'
+import React, { useEffect } from "react";
 
+import { getSinglePokemonData } from "../context/pokemonContext/pokemonActions";
+import { usePokemon } from "../context/pokemonContext/pokemonContext";
+import formatId from "../utils/formatId";
+import Loader from "./Loader";
+import Pagination from "./Pagination";
+import PokemonInfo from "./PokemonInfo";
+import ReplaceGender from "./ReplaceGender";
+import Stats from "./Stats";
+import Tag from "./Tag";
 
 interface Props {
-  pokemonId: number
+  pokemonId: number;
 }
 
-const SinglePokemon = ({ pokemonId }: Props) => {
-  const { state: { singlePokemonData, loadingData }, dispatch } = usePokemon()
+function SinglePokemon({ pokemonId }: Props) {
+  const {
+    state: { singlePokemonData, loadingData },
+    dispatch,
+  } = usePokemon();
 
   useEffect(() => {
-    getSinglePokemonData(pokemonId, dispatch)
-  }, [])
+    getSinglePokemonData(pokemonId, dispatch);
+  }, [dispatch, pokemonId]);
 
   return (
     <div className="mx-auto lg:max-w-7xl mt-10 bg-white bg-container-bg flex flex-col">
-      <title>{singlePokemonData ? singlePokemonData.name : 'Pokémon'}</title>
+      <title>{singlePokemonData ? singlePokemonData.name : "Pokémon"}</title>
       <main className="mx-auto max-w-5xl bg-white">
         <Loader loading={loadingData} />
-        {
-          singlePokemonData && (
-            <>
-              <Pagination prevPokemon={singlePokemonData.prevPokemon} nextPokemon={singlePokemonData.nextPokemon} />
-              <div className="flex justify-center">
-                <h1 className="text-3xl text-center mt-5 mb-16">
-                  <span className="flex">
-                    <ReplaceGender name={singlePokemonData.name} />
-                    <span className="ml-4 text-gray-600">{formatId(singlePokemonData.id)}</span>
+        {singlePokemonData && (
+          <>
+            <Pagination
+              prevPokemon={singlePokemonData.prevPokemon}
+              nextPokemon={singlePokemonData.nextPokemon}
+            />
+            <div className="flex justify-center">
+              <h1 className="text-3xl text-center mt-5 mb-16">
+                <span className="flex">
+                  <ReplaceGender name={singlePokemonData.name} />
+                  <span className="ml-4 text-gray-600">
+                    {formatId(singlePokemonData.id)}
                   </span>
-                </h1>
-              </div>
-              <div className="grid sm:grid-cols-1 lg:grid-cols-2 mb-20">
-                <div className="flex flex-col px-2">
-                  <div className="rounded-md bg-light-gray">
-                    <img src={singlePokemonData.imageUrl} className="mx-auto w-96 lg:w-[500px]" />
-                  </div>
-                  <Stats stats={singlePokemonData.stats} />
-                </div>
-                <div className="flex flex-col m-2 p-2">
-                  <p className="text-lg mb-10">{singlePokemonData.flavorText}</p>
-                  <PokemonInfo
-                    height={singlePokemonData.height}
-                    weight={singlePokemonData.weight}
-                    gender={singlePokemonData.gender}
-                    category={singlePokemonData.category}
-                    abilities={singlePokemonData.abilities}
+                </span>
+              </h1>
+            </div>
+            <div className="grid sm:grid-cols-1 lg:grid-cols-2 mb-20">
+              <div className="flex flex-col px-2">
+                <div className="rounded-md bg-light-gray">
+                  <img
+                    src={singlePokemonData.imageUrl}
+                    alt={`${singlePokemonData.name} sprite`}
+                    className="mx-auto w-96 lg:w-[500px]"
                   />
-                  <div className="mt-10">
-                    <p>Type</p>
-                    <div className="flex">
-                      {
-                        singlePokemonData.types.map((item) => <Tag type={item} size="big" />)
-                      }
-                    </div>
+                </div>
+                <Stats stats={singlePokemonData.stats} />
+              </div>
+              <div className="flex flex-col m-2 p-2">
+                <p className="text-lg mb-10">{singlePokemonData.flavorText}</p>
+                <PokemonInfo
+                  height={singlePokemonData.height}
+                  weight={singlePokemonData.weight}
+                  gender={singlePokemonData.gender}
+                  category={singlePokemonData.category}
+                  abilities={singlePokemonData.abilities}
+                />
+                <div className="mt-10">
+                  <p>Type</p>
+                  <div className="flex">
+                    {singlePokemonData.types.map((item) => (
+                      <Tag type={item} size="big" />
+                    ))}
                   </div>
                 </div>
               </div>
-            </>
-          )
-        }
+            </div>
+          </>
+        )}
       </main>
     </div>
-  )
+  );
 }
 
-export default SinglePokemon
+export default SinglePokemon;
