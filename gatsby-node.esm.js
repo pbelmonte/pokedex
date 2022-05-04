@@ -1,11 +1,12 @@
 import path from "path";
+import { maxPokemonNumber } from "./src/utils/constants";
 
 export const createPages = ({ actions }) => {
   const { createPage } = actions;
 
   const template = path.resolve("src/pages/pokemon.tsx");
 
-  const pages = [...Array(898).keys()];
+  const pages = [...Array(maxPokemonNumber).keys()];
 
   pages.forEach((element) => {
     createPage({

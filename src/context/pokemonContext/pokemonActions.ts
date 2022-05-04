@@ -1,4 +1,5 @@
 import capitalize from "../../utils/capitalize";
+import { maxPokemonNumber } from "../../utils/constants";
 import findEnglish from "../../utils/findEnglish";
 import {
   Action,
@@ -32,13 +33,13 @@ export const getPokemonData = async (
   currentList: PokemonData[],
   dispatch: Dispatch,
 ) => {
-  if (currentList.length < 899) {
+  if (currentList.length < maxPokemonNumber + 1) {
     dispatch(setLoadingData(true));
     const range = (start: number, stop: number) =>
       Array.from({ length: stop - start }, (_, i) => start + i);
     const batch = range(
       currentList.length + 1,
-      Math.min(currentList.length + 13, 899),
+      Math.min(currentList.length + 13, maxPokemonNumber + 1),
     );
     const results: PokemonData[] = [];
     await Promise.all(
@@ -139,7 +140,7 @@ export const getSinglePokemonData = async (
     : "";
 
   // Get prev pokemon data
-  const prevId = pokemonId === 1 ? 898 : pokemonId - 1;
+  const prevId = pokemonId === 1 ? maxPokemonNumber : pokemonId - 1;
   const prevResponse = await fetch(
     `https://pokeapi.co/api/v2/pokemon/${prevId}`,
   );
@@ -154,7 +155,7 @@ export const getSinglePokemonData = async (
   };
 
   // Get next pokemon data
-  const nextId = pokemonId === 898 ? 1 : pokemonId + 1;
+  const nextId = pokemonId === maxPokemonNumber ? 1 : pokemonId + 1;
   const nextResponse = await fetch(
     `https://pokeapi.co/api/v2/pokemon/${nextId}`,
   );
