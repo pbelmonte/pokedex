@@ -9,7 +9,7 @@ import {
   usePokemon,
 } from "../context/pokemonContext/pokemonContext";
 
-function IndexPage() {
+export default function IndexPage() {
   const { state, dispatch } = usePokemon();
   const [shouldLoad, setShouldLoad] = useState<boolean>(true);
 
@@ -69,5 +69,3 @@ function IndexPage() {
     </PokemonProvider>
   );
 }
-
-export default IndexPage;

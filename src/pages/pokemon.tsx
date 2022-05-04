@@ -21,7 +21,7 @@ interface Props {
   pageContext: { id: number };
 }
 
-function PokemonPage({ pageContext: { id } }: Props) {
+export default function PokemonPage({ pageContext: { id } }: Props) {
   const {
     state: { singlePokemonData, loadingData },
     dispatch,
@@ -101,5 +101,3 @@ function PokemonPage({ pageContext: { id } }: Props) {
     </PokemonProvider>
   );
 }
-
-export default PokemonPage;

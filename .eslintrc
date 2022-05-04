@@ -58,5 +58,5 @@
     "react/react-in-jsx-scope": "off",
     "lines-around-directive": "off"
   },
-  "ignorePatterns": ["__mocks__", "gatsby-browser.js", "gatsby-node*", "jest*", "loadershim.js", "package*", "postcss.config.js", "tailwind.config.js", "tsconfig.json"]
+  "ignorePatterns": ["__mocks__", "gatsby-browser.js", "gatsby-ssr.js", "gatsby-node*", "jest*", "loadershim.js", "package*", "postcss.config.js", "tailwind.config.js", "tsconfig.json"]
 }
