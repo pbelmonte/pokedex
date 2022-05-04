@@ -1,6 +1,6 @@
 export const SET_LOADING_DATA = "SET_LOADING_DATA";
 export const SET_POKEMON_LIST = "SET_POKEMON_LIST";
-export const SET_SINGLE_POKERMON_DATA = "SET_SINGLE_POKEMON_DATA";
+export const SET_SINGLE_POKEMON_DATA = "SET_SINGLE_POKEMON_DATA";
 
 export interface PokemonData {
   id: number;
@@ -45,8 +45,8 @@ interface setPokemonList {
 }
 
 interface setSinglePokemonData {
-  type: typeof SET_SINGLE_POKERMON_DATA;
-  singlePokemonData: SinglePokemonData;
+  type: typeof SET_SINGLE_POKEMON_DATA;
+  singlePokemonData: SinglePokemonData | null;
 }
 
 export type Dispatch = (action: Action) => void;

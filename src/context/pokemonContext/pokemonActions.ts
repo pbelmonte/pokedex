@@ -7,7 +7,7 @@ import {
   PokemonData,
   SET_LOADING_DATA,
   SET_POKEMON_LIST,
-  SET_SINGLE_POKERMON_DATA,
+  SET_SINGLE_POKEMON_DATA,
   SinglePokemonData,
 } from "./pokemonTypes";
 
@@ -22,9 +22,9 @@ export const setPokemonList = (pokemonList: PokemonData[]): Action => ({
 });
 
 export const setSinglePokemonData = (
-  singlePokemonData: SinglePokemonData,
+  singlePokemonData: SinglePokemonData | null,
 ): Action => ({
-  type: SET_SINGLE_POKERMON_DATA,
+  type: SET_SINGLE_POKEMON_DATA,
   singlePokemonData,
 });
 
@@ -49,7 +49,7 @@ export const getPokemonData = async (
         const json = await response.json();
         results.push({
           id: json.id,
-          name: json.name.charAt(0).toUpperCase() + json.name.slice(1),
+          name: capitalize(json.name),
           imageUrl: json.sprites?.front_default,
           types: json.types.map((typeItem: { type: { name: string } }) =>
             capitalize(typeItem.type.name),
@@ -113,14 +113,17 @@ export const getSinglePokemonData = async (
     nextPokemon: { id: -1, name: "", imageUrl: "", types: [] },
   };
 
+  // Get species data
   const speciesResponse = await fetch(json.species.url);
   const speciesJson = await speciesResponse.json();
 
+  // Set flavor text
   const englishFlavorText = findEnglish(speciesJson.flavor_text_entries);
   result.flavorText = englishFlavorText
     ? (englishFlavorText.flavor_text as string)
     : "";
 
+  // Set gender
   if (speciesJson.gender_rate === -1) {
     result.gender = "genderless";
   } else if (speciesJson.gender_rate === 0) {
@@ -129,37 +132,39 @@ export const getSinglePokemonData = async (
     result.gender = "female";
   }
 
+  // Set category
   const englishCategory = findEnglish(speciesJson.genera);
   result.category = englishCategory
     ? (englishCategory.genus as string).split(" Pokémon")[0]
     : "";
 
+  // Get prev pokemon data
   const prevId = pokemonId === 1 ? 898 : pokemonId - 1;
-  const nextId = pokemonId === 898 ? 1 : pokemonId + 1;
   const prevResponse = await fetch(
     `https://pokeapi.co/api/v2/pokemon/${prevId}`,
   );
   const prevJson = await prevResponse.json();
   result.prevPokemon = {
     id: prevJson.id,
-    name: prevJson.name.charAt(0).toUpperCase() + prevJson.name.slice(1),
+    name: capitalize(prevJson.name),
     imageUrl: prevJson.sprites?.front_default,
-    types: prevJson.types.map(
-      (item: { type: { name: string } }) =>
-        item.type.name.charAt(0).toUpperCase() + item.type.name.slice(1),
+    types: prevJson.types.map((item: { type: { name: string } }) =>
+      capitalize(item.type.name),
     ),
   };
+
+  // Get next pokemon data
+  const nextId = pokemonId === 898 ? 1 : pokemonId + 1;
   const nextResponse = await fetch(
     `https://pokeapi.co/api/v2/pokemon/${nextId}`,
   );
   const nextJson = await nextResponse.json();
   result.nextPokemon = {
     id: nextJson.id,
-    name: nextJson.name.charAt(0).toUpperCase() + nextJson.name.slice(1),
+    name: capitalize(nextJson.name),
     imageUrl: nextJson.sprites?.front_default,
-    types: nextJson.types.map(
-      (item: { type: { name: string } }) =>
-        item.type.name.charAt(0).toUpperCase() + item.type.name.slice(1),
+    types: nextJson.types.map((item: { type: { name: string } }) =>
+      capitalize(item.type.name),
     ),
   };
 

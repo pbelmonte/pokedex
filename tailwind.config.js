@@ -4,10 +4,12 @@ module.exports = {
     extend: {
       colors: {
         "light-blue": "#30a7d7",
-        blue: "#1b82b1",
+        "dark-blue": "#1b82b1",
         "light-gray": "#F2F2F2",
         "medium-gray": "#a4a4a4",
         "dark-gray": "#616161",
+        "light-orange": "#ee6b2f",
+        "dark-orange": "#da471b",
         "normal-tag": "#212121",
         "fighting-tag": "#fff",
         "flying-tag": "#212121",

@@ -4,7 +4,7 @@ interface ObjectValue {
 }
 
 export default (entries: ObjectValue[]) => {
-  const filtered = entries.filter((entry) => entry.language.name === "en");
+  const filtered = entries.filter(entry => entry.language.name === "en");
   if (filtered.length > 0) {
     return filtered[0];
   }

@@ -49,7 +49,7 @@ function PokemonInfo({ height, weight, gender, category, abilities }: Props) {
         </div>
         <div className="flex flex-col">
           <p className="text-white">Abilities</p>
-          {abilities.map((item) => (
+          {abilities.map(item => (
             <p className="text-xl">{fromSnakeToText(item)}</p>
           ))}
         </div>

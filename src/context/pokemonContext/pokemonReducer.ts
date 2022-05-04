@@ -2,7 +2,7 @@ import {
   Action,
   SET_LOADING_DATA,
   SET_POKEMON_LIST,
-  SET_SINGLE_POKERMON_DATA,
+  SET_SINGLE_POKEMON_DATA,
   State,
 } from "./pokemonTypes";
 
@@ -26,7 +26,7 @@ const apiReducer = (state: State, action: Action): State => {
         pokemonList: action.pokemonList,
       };
     }
-    case SET_SINGLE_POKERMON_DATA: {
+    case SET_SINGLE_POKEMON_DATA: {
       return {
         ...state,
         singlePokemonData: action.singlePokemonData,
